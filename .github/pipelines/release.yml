@@ -6,7 +6,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  name: 1.1.$(Build.BuildNumber)
+  name: 1.1.$(BuildID)
 
 steps:
 - task: UseDotNet@2
