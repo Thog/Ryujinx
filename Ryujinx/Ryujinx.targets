@@ -1,0 +1,7 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> 
+    <Target Name="CustomAfterPublish" Condition="Exists('$(ArtifactStagingDirectory)')" AfterTargets="Publish">
+        <ZipDirectory
+            SourceDirectory="$(MSBuildProjectDirectory)\$(PublishDir)"
+            DestinationFile="$(ArtifactStagingDirectory)\ryujinx-$(Version)-$(RuntimeIdentifier).zip" />
+    </Target>     
+</Project>

@@ -14,38 +14,14 @@ steps:
   inputs:
     version: '3.1.x'
     performMultiLevelLookup: true
-- task: DotNetCoreCLI@2
-  displayName: 'Publish Windows x64'
-  inputs:
-    command: publish
-    publishWebProjects: false
-    projects: 'Ryujinx/Ryujinx.csproj'
-    arguments: '-r win-x64 --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/win-x64'
-    versioningScheme: 'byBuildNumber'
-    zipAfterPublish: true
-    modifyOutputPath: true
 
 - task: DotNetCoreCLI@2
-  displayName: 'Publish Linux x64'
+  displayName: 'Building and publishing'
   inputs:
-    command: publish
-    publishWebProjects: false
+    command: 'custom'
     projects: 'Ryujinx/Ryujinx.csproj'
-    arguments: '-r linux-x64 --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/linux-x64'
-    versioningScheme: 'byBuildNumber'
-    zipAfterPublish: true
-    modifyOutputPath: true
-
-- task: DotNetCoreCLI@2
-  displayName: 'Publish OSX x64'
-  inputs:
-    command: publish
-    publishWebProjects: false
-    projects: 'Ryujinx/Ryujinx.csproj'
-    arguments: '-r osx-x64 --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/osx-x64'
-    versioningScheme: 'byBuildNumber'
-    zipAfterPublish: true
-    modifyOutputPath: true
+    custom: 'msbuild'
+    arguments: '-restore -t:PublishAllRids -p:Configuration="$(buildConfiguration)" -p:ArtifactStagingDirectory=$(Build.ArtifactStagingDirectory) -pVersion=$(name)'
 
 - task: PublishBuildArtifacts@1
   displayName: "Upload Artifacts"

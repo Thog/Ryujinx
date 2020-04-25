@@ -97,4 +97,6 @@
     </None>
   </ItemGroup>
 
+  <Import Project="Ryujinx.targets"/>
+  <Import Project="PublishAllRids.targets"/>
 </Project>
