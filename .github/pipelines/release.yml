@@ -21,7 +21,7 @@ steps:
     command: 'custom'
     projects: 'Ryujinx/Ryujinx.csproj'
     custom: 'msbuild'
-    arguments: '-restore -t:PublishAllRids -p:Configuration="$(buildConfiguration)" -p:ArtifactStagingDirectory=$(Build.ArtifactStagingDirectory) -pVersion=$(name)'
+    arguments: '-restore -t:PublishAllRids -p:Configuration="$(buildConfiguration)" -p:ArtifactStagingDirectory="$(Build.ArtifactStagingDirectory)" -pVersion="$(name)"'
 
 - task: PublishBuildArtifacts@1
   displayName: "Upload Artifacts"
