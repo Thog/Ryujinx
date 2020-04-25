@@ -23,8 +23,9 @@ steps:
   inputs:
     command: publish
     publishWebProjects: false
-    projects: '**/*.csproj'
-    arguments: '-r win-x64 --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    projects: 'Ryujinx/Ryujinx.csproj'
+    arguments: '-r win-x64 --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/win-x64'
+    versioningScheme: 'byBuildNumber'
     zipAfterPublish: true
     modifyOutputPath: true
 
@@ -33,8 +34,9 @@ steps:
   inputs:
     command: publish
     publishWebProjects: false
-    projects: '**/*.csproj'
-    arguments: '-r linux-x64 --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    projects: 'Ryujinx/Ryujinx.csproj'
+    arguments: '-r linux-x64 --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/linux-x64'
+    versioningScheme: 'byBuildNumber'
     zipAfterPublish: true
     modifyOutputPath: true
 
@@ -43,8 +45,9 @@ steps:
   inputs:
     command: publish
     publishWebProjects: false
-    projects: '**/*.csproj'
-    arguments: '-r osx-x64 --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    projects: 'Ryujinx/Ryujinx.csproj'
+    arguments: '-r osx-x64 --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/osx-x64'
+    versioningScheme: 'byBuildNumber'
     zipAfterPublish: true
     modifyOutputPath: true
 
