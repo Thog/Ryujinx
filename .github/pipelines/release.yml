@@ -43,4 +43,16 @@ steps:
     tag: '$(name)'
     title: '$(name)'
     releaseNotesSource: 'inline'
+    isDraft: true
+    addChangeLog: false
+
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'Testing'
+    repositoryName: 'Thog/temp_test'
+    action: 'edit'
+    target: 'master'
+    tag: '$(name)'
+    releaseNotesSource: 'inline'
+    assetUploadMode: 'replace'
     addChangeLog: false
