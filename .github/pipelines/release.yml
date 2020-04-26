@@ -28,8 +28,14 @@ steps:
     custom: 'msbuild'
     arguments: '-t:PublishAllRids -p:Configuration="$(buildConfiguration)" -p:ArtifactStagingDirectory="$(Build.ArtifactStagingDirectory)" -p:Version="$(name)"'
 
-- task: PublishBuildArtifacts@1
-  displayName: "Upload Artifacts"
+- task: GitHubRelease@1
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'Ryujinx'
+    gitHubConnection: 'Testing'
+    repositoryName: 'Thog/temp_test'
+    action: 'create'
+    target: '$(Build.SourceVersion)'
+    tagSource: 'gitTag'
+    title: '$(name)'
+    releaseNotesSource: 'inline'
+    changeLogCompareToRelease: 'lastFullRelease'
+    changeLogType: 'commitBased'
