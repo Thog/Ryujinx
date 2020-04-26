@@ -1,7 +1,17 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> 
-    <Target Name="CustomAfterPublish" Condition="Exists('$(ArtifactStagingDirectory)')" AfterTargets="Publish">
+    <Target Name="PackReleaseAfterPublishing" Condition="Exists('$(ArtifactStagingDirectory)')" AfterTargets="Publish">
+        <PropertyGroup>
+            <ReleaseFileName>Ryujinx-$(Configuration)-$(Version)-$(RuntimeIdentifier)</ReleaseFileName>
+            <ReleaseZipFile>$(ArtifactStagingDirectory)\$(ReleaseFileName).zip</ReleaseZipFile>
+            <ReleaseChecksumFile>$(ArtifactStagingDirectory)\$(ReleaseFileName).sha256</ReleaseChecksumFile>
+          </PropertyGroup>
         <ZipDirectory
             SourceDirectory="$(MSBuildProjectDirectory)\$(PublishDir)"
-            DestinationFile="$(ArtifactStagingDirectory)\ryujinx-$(Version)-$(RuntimeIdentifier).zip" />
-    </Target>     
+            Overwrite="true"
+            DestinationFile="$(ReleaseZipFile)" />
+        <GetFileHash Files="$(ReleaseZipFile)" >
+            <Output TaskParameter="Items" ItemName="Hash" />
+        </GetFileHash>
+        <WriteLinesToFile File="$(ReleaseChecksumFile)" Lines="@(Hash->'$(ReleaseFileName).zip %(FileHash)')" Overwrite="true"/>
+    </Target>
 </Project>
