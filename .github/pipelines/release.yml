@@ -38,5 +38,4 @@ steps:
     tag: '$(name)'
     title: '$(name)'
     releaseNotesSource: 'inline'
-    changeLogCompareToRelease: 'lastFullRelease'
-    changeLogType: 'commitBased'
+    addChangeLog: false
