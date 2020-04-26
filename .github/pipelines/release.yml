@@ -33,9 +33,9 @@ steps:
     gitHubConnection: 'Testing'
     repositoryName: 'Thog/temp_test'
     action: 'create'
-    target: '$(Build.SourceVersion)'
+    target: 'master'
     tagSource: 'userSpecifiedTag'
-    tag: '$(name)'
+    tag: '$(Build.BuildId)'
     title: '$(name)'
     releaseNotesSource: 'inline'
     addChangeLog: false
