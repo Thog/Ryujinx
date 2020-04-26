@@ -6,7 +6,12 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  name: 1.1.$(Build.BuildID)
+
+  # DO NOT TOUCH, THIS WOULD RESET BUILD ID COUNTER
+  realBuildIdPrefix: 1
+  realBuildId: $[counter(variables['realBuildIdPrefix'], 5000)]
+
+  name: 1.1.$(realBuildId)
 
 steps:
 - task: UseDotNet@2
@@ -35,7 +40,7 @@ steps:
     action: 'create'
     target: 'master'
     tagSource: 'userSpecifiedTag'
-    tag: '$(Build.BuildId)'
+    tag: '$(name)'
     title: '$(name)'
     releaseNotesSource: 'inline'
     addChangeLog: false
