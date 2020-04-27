@@ -138,7 +138,7 @@ namespace Ryujinx.Ui
                     {
                         if (keyboard.IsKeyDown(OpenTK.Input.Key.Escape))
                         {
-                            if (GtkDialog.CreateExitDialog())
+                            if (GtkDialog.CreateChoiceDialog("Ryujinx - Exit", "Are you sure you want to close Ryujinx?", "All unsaved data will be lost!"))
                             {
                                 Exit();
                             }

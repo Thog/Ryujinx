@@ -17,8 +17,13 @@ namespace Ryujinx
 
         public static string ConfigurationPath { get; set; }
 
+        public static MainWindow mainWindow;
+
         static void Main(string[] args)
         {
+            // Delete backup files after updating
+            Updater.DeleteBackupFiles();
+
             Toolkit.Init(new ToolkitOptions
             {
                 Backend = PlatformBackend.PreferNative,
@@ -49,8 +54,8 @@ namespace Ryujinx
             Logger.PrintInfo(LogClass.Application, $"CPU: {SystemInfo.CpuName}");
             Logger.PrintInfo(LogClass.Application, $"Total RAM: {SystemInfo.RamSize}");
 
-            string localConfigurationPath  = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config.json");
-            string globalBasePath          = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Ryujinx");
+            string localConfigurationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config.json");
+            string globalBasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Ryujinx");
             string globalConfigurationPath = Path.Combine(globalBasePath, "Config.json");
 
             // Now load the configuration as the other subsystems are now registered
@@ -87,13 +92,13 @@ namespace Ryujinx
             Application.Init();
 
             string globalProdKeysPath = Path.Combine(globalBasePath, "system", "prod.keys");
-            string userProfilePath    = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".switch", "prod.keys");
+            string userProfilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".switch", "prod.keys");
             if (!File.Exists(globalProdKeysPath) && !File.Exists(userProfilePath) && !Migration.IsMigrationNeeded())
             {
                 GtkDialog.CreateWarningDialog("Key file was not found", "Please refer to `KEYS.md` for more info");
             }
 
-            MainWindow mainWindow = new MainWindow();
+            mainWindow = new MainWindow();
             mainWindow.Show();
 
             if (args.Length == 1)
